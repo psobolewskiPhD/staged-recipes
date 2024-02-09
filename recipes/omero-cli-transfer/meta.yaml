@@ -1,0 +1,44 @@
+{% set name = "omero-cli-transfer" %}
+{% set version = "0.8.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/omero-cli-transfer-{{ version }}.tar.gz
+  sha256: 3c39cb7b5a0272b2b4c038f7f347cc6ee82d48dae286865411fd52f01d4d9249
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - pytest
+    - pip
+  run:
+    - python >=3.8
+    - ezomero ==2.0.0
+    - ome-types ==0.4.2
+
+test:
+  imports:
+    - ''
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/TheJacksonLaboratory/omero-cli-transfer
+  summary: A set of utilities for exporting a transfer packet from an OMERO server and importing it in a different server. Developed by the Research IT team at The Jackson Laboratory.
+  license: GPL-2.0-or-later
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - psobolewskiPhD
+    - erickmartins
